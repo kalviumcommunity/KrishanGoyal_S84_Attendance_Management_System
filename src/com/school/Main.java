@@ -1,42 +1,34 @@
-package com.school;
-
+package com.school; 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("==== School Attendance System ====");
 
-        System.out.println("---School Attendance System---");
+        System.out.println("Creating Students and Courses using Constructors:");
+        Student student1 = new Student("Alice Wonderland");
+        Student student2 = new Student("Bob The Builder");
 
-        Student[] students = new Student[2];
-
-        Student S1 = new Student();
-        Student S2 = new Student();
-
-        S1.setDetails(01, "Krishan");
-        S2.setDetails(02, "Harsh");
-
-        students[0] = S1;
-        students[1] = S2;
+        Course course1 = new Course("Intro to Programming");
+        Course course2 = new Course("Linear Algebra");
 
         System.out.println("\nRegistered Students:");
-
-        for (int i = 0; i < students.length; i++) {
-            students[i].displayDetails();
-        }
-
-        Course[] courses = new Course[2];
-
-        Course C1 = new Course();
-        Course C2 = new Course();
-
-        C1.setDetails(01, "Math");
-        C2.setDetails(02, "Science");
-
-        courses[0] = C1;
-        courses[1] = C2;
+        student1.displayDetails();
+        student2.displayDetails();
 
         System.out.println("\nAvailable Courses:");
+        course1.displayDetails();
+        course2.displayDetails();
 
-        for (int i = 0; i < courses.length; i++) {
-            courses[i].displayDetails();
-        }
+        System.out.println("\n== Auto-ID Generation Test ==");
+        System.out.println("Creating one more student and course...");
+        Student student3 = new Student("Charlie Chaplin");
+        Course course3 = new Course("Data Structures");
+
+        System.out.println("\nNew Student:");
+        student3.displayDetails();
+
+        System.out.println("New Course:");
+        course3.displayDetails();
+
+        System.out.println("\nSession 3: Constructor Initialization & Auto-ID Generation Complete.");
     }
 }
