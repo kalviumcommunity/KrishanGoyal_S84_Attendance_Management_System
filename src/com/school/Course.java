@@ -11,6 +11,14 @@ public class Course {
         this.courseName = courseName;
     }
 
+    public int getCourseId(){
+        return courseId;
+    }
+    
+    public String getCourseName(){
+        return courseName;
+    }
+
     public void displayDetails() {
         System.out.println("Course ID: " + this.courseId + ", Name: " + this.courseName);
     }
