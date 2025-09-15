@@ -48,19 +48,27 @@ public class Main {
             record.displayRecord();
         }
 
-        // System.out.println("\n== Auto-ID Generation Test ==");
-        // System.out.println("Creating one more student and course...");
-        // Student student3 = new Student("Charlie Chaplin");
-        // Course course3 = new Course("Data Structures");
+        // File Storage Implementation
+        System.out.println("\n--- File Storage Operations ---");
 
-        // System.out.println("\nNew Student:");
-        // student3.displayDetails();
+        // Create ArrayLists for each type
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(student1);
+        students.add(student2);
+        students.add(student3);
 
-        // System.out.println("New Course:");
-        // course3.displayDetails();
+        ArrayList<Course> courses = new ArrayList<>();
+        courses.add(course1);
+        courses.add(course2);
+        courses.add(course3);
 
-        // System.out.println("\nSession 3: Constructor Initialization & Auto-ID
-        // Generation Complete.");
+        ArrayList<AttendanceRecord> records = new ArrayList<>(attendanceLog);
+
+        // Create FileStorageService instance and save data
+        FileStorageService fileService = new FileStorageService();
+        fileService.saveData(students, "students.txt");
+        fileService.saveData(courses, "courses.txt");
+        fileService.saveData(records, "attendance_log.txt");
 
     }
 }
