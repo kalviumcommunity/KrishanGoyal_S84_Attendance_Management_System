@@ -1,3 +1,2 @@
-101,Intro to Programming
-102,Linear Algebra
-103,OOPs
+101,Intro to Quantum Physics
+102,Advanced Algorithms
