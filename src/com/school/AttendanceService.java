@@ -6,9 +6,11 @@ import java.util.List;
 public class AttendanceService {
     private final List<AttendanceRecord> attendanceLog;
     private final FileStorageService storageService;
+    private final RegistrationService registrationService;
 
-    public AttendanceService(FileStorageService storageService) {
+    public AttendanceService(FileStorageService storageService, RegistrationService registrationService) {
         this.storageService = storageService;
+        this.registrationService = registrationService;
         this.attendanceLog = new ArrayList<>();
     }
 
@@ -22,11 +24,10 @@ public class AttendanceService {
         attendanceLog.add(record);
     }
 
-    // Overload 2: mark using ids, plus lookup lists
-    public void markAttendance(int studentId, int courseId, String status, List<Student> allStudents,
-            List<Course> allCourses) {
-        Student student = findStudentById(studentId, allStudents);
-        Course course = findCourseById(courseId, allCourses);
+    // Overload 2: mark using ids, uses RegistrationService for lookups
+    public void markAttendance(int studentId, int courseId, String status) {
+        Student student = registrationService.findStudentById(studentId);
+        Course course = registrationService.findCourseById(courseId);
 
         if (student == null) {
             System.out.println("Student with ID " + studentId + " not found. Skipping attendance.");
@@ -38,27 +39,6 @@ public class AttendanceService {
         }
 
         markAttendance(student, course, status);
-    }
-
-    // Helper finders
-    private Student findStudentById(int id, List<Student> allStudents) {
-        if (allStudents == null)
-            return null;
-        for (Student s : allStudents) {
-            if (s != null && s.getId() == id)
-                return s;
-        }
-        return null;
-    }
-
-    private Course findCourseById(int id, List<Course> allCourses) {
-        if (allCourses == null)
-            return null;
-        for (Course c : allCourses) {
-            if (c != null && c.getCourseId() == id)
-                return c;
-        }
-        return null;
     }
 
     // Display methods
