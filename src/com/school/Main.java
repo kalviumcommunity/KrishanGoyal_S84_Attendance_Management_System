@@ -17,7 +17,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.println("--- School Administration & Attendance System (Polymorphism Demo) ---");
+        System.out.println("=== School Enrollment & Attendance System ===\n");
 
         // Create services
         FileStorageService storageService = new FileStorageService();
@@ -30,47 +30,65 @@ public class Main {
         registrationService.registerTeacher("Dr. Emily Carter", "Physics");
         registrationService.registerStaff("Mr. John Davis", "Librarian");
 
-        // Display school directory using RegistrationService
-        displaySchoolDirectory(registrationService);
+        // Create courses with capacity
+        registrationService.createCourse("Intro to Quantum Physics", 2);
+        registrationService.createCourse("Advanced Algorithms", 10);
 
-        // Create courses
-        registrationService.createCourse("Intro to Quantum Physics");
-        registrationService.createCourse("Advanced Algorithms");
-
-        System.out.println("\n\n--- Available Courses ---");
+        System.out.println("--- Courses (Before Enrollment) ---");
         for (Course c : registrationService.getCourses()) {
             c.displayDetails();
         }
 
-        // Get students and courses for attendance marking
+        // Get students and courses for enrollment
         List<Student> students = registrationService.getStudents();
         List<Course> courses = registrationService.getCourses();
 
-        // Mark attendance using object-based method
-        if (students.size() >= 2 && courses.size() >= 1) {
-            attendanceService.markAttendance(students.get(0), courses.get(0), "Present");
-            attendanceService.markAttendance(students.get(1), courses.get(0), "Absent");
+        // Enroll students in courses
+        System.out.println("\n--- Student Enrollment ---");
+        if (students.size() >= 2 && courses.size() >= 2) {
+            registrationService.enrollStudentInCourse(students.get(0), courses.get(0)); // Alice in Quantum Physics
+            registrationService.enrollStudentInCourse(students.get(1), courses.get(0)); // Bob in Quantum Physics
+            registrationService.enrollStudentInCourse(students.get(0), courses.get(1)); // Alice in Algorithms
+
+            // This should fail - course is at capacity
+            Student extraStudent = new Student("Charlie Brown", "Grade 11");
+            registrationService.enrollStudentInCourse(extraStudent, courses.get(0)); // Should fail - capacity exceeded
         }
 
-        // Mark attendance using ID-based method
-        if (students.size() >= 1 && courses.size() >= 2) {
-            attendanceService.markAttendance(students.get(0).getId(), courses.get(1).getCourseId(), "Daydreaming");
+        System.out.println("\n--- Courses (After Enrollment) ---");
+        for (Course c : registrationService.getCourses()) {
+            c.displayDetails();
+        }
+
+        // Mark attendance with enrollment check
+        System.out.println("\n--- Marking Attendance ---");
+        if (students.size() >= 2 && courses.size() >= 2) {
+            Course course1 = courses.get(0);
+            Course course2 = courses.get(1);
+            Student student1 = students.get(0);
+            Student student2 = students.get(1);
+
+            if (course1.getEnrolledStudents().contains(student1)) {
+                attendanceService.markAttendance(student1, course1, "Present");
+            }
+
+            if (course1.getEnrolledStudents().contains(student2)) {
+                attendanceService.markAttendance(student2, course1, "Absent");
+            }
+
+            if (course2.getEnrolledStudents().contains(student1)) {
+                attendanceService.markAttendance(student1.getId(), course2.getCourseId(), "Late");
+            }
         }
 
         // Display attendance logs
         attendanceService.displayAttendanceLog();
-        if (students.size() >= 1) {
-            attendanceService.displayAttendanceLog(students.get(0));
-        }
-        if (courses.size() >= 1) {
-            attendanceService.displayAttendanceLog(courses.get(0));
-        }
 
         // Save all data
-        System.out.println("\n\n--- Saving Data to Files ---");
+        System.out.println("\n--- Saving Data ---");
         registrationService.saveAllRegistrations();
         attendanceService.saveAttendanceData();
 
-        System.out.println("\nSession Complete: All data saved successfully.");
+        System.out.println("\nSystem operations completed successfully.");
     }
 }

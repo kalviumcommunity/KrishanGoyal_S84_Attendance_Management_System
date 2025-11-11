@@ -43,9 +43,9 @@ public class AttendanceService {
 
     // Display methods
     public void displayAttendanceLog() {
-        System.out.println("\n\n--- Attendance Log ---");
+        System.out.println("\n--- Attendance Records ---");
         if (attendanceLog.isEmpty()) {
-            System.out.println("No attendance records yet.");
+            System.out.println("No attendance records.");
             return;
         }
         for (AttendanceRecord ar : attendanceLog) {
