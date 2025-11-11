@@ -1,2 +1,2 @@
-101,Intro to Quantum Physics
-102,Advanced Algorithms
+101,Intro to Quantum Physics,2
+102,Advanced Algorithms,10

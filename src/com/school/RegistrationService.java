@@ -34,9 +34,23 @@ public class RegistrationService {
         staffMembers.add(staff);
     }
 
-    public void createCourse(String courseName) {
-        Course course = new Course(courseName);
+    public void createCourse(String courseName, int capacity) {
+        Course course = new Course(courseName, capacity);
         courses.add(course);
+    }
+
+    public boolean enrollStudentInCourse(Student student, Course course) {
+        if (student == null || course == null) {
+            System.out.println("Cannot enroll: student or course is null.");
+            return false;
+        }
+        boolean success = course.addStudent(student);
+        if (success) {
+            System.out.println("Successfully enrolled " + student.getName() + " in " + course.getCourseName());
+        } else {
+            System.out.println("Failed to enroll " + student.getName() + " in " + course.getCourseName());
+        }
+        return success;
     }
 
     // Getters for lists

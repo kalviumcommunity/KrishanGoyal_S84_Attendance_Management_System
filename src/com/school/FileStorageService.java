@@ -10,9 +10,9 @@ public class FileStorageService {
             for (Storable item : items) {
                 writer.println(item.toDataString());
             }
-            System.out.println("Data successfully saved to " + filename);
+            System.out.println("Saved " + filename);
         } catch (IOException e) {
-            System.err.println("Error saving data to " + filename + ": " + e.getMessage());
+            System.err.println("Error saving " + filename + ": " + e.getMessage());
         }
     }
 }
